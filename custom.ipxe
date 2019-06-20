@@ -7,7 +7,7 @@
 clear custom_choice
 menu This is a Test Menu
 item --gap This is the first sub menu
-item option_one ${space} Loading a kernel and initrd
+item ubuntu ${space} Ubuntu Netboot
 item windows ${space} Windows 19.03ISO
 item --gap This is a second sub menu
 item option_three ${space} Loads another custom sub menu
@@ -17,9 +17,9 @@ echo ${cls}
 goto ${custom_choice}
 goto custom_exit
 
-:option_one
-kernel http://path.to/vmlinuz
-initrd http://path.to/initrd
+:ubuntu
+kernel http://br.archive.ubuntu.com/ubuntu/dists/disco/main/installer-amd64/current/images/netboot/ubuntu-installer/amd64/linux
+initrd http://br.archive.ubuntu.com/ubuntu/dists/disco/main/installer-amd64/current/images/netboot/ubuntu-installer/amd64/initrd.gz
 imgargs vmlinuz put_kernel_img_args_here
 boot || goto custom_exit
 
