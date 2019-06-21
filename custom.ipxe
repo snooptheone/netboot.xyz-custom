@@ -20,7 +20,7 @@ goto custom_exit
 :ubuntu
 kernel http://br.archive.ubuntu.com/ubuntu/dists/disco/main/installer-amd64/current/images/netboot/ubuntu-installer/amd64/linux
 initrd http://br.archive.ubuntu.com/ubuntu/dists/disco/main/installer-amd64/current/images/netboot/ubuntu-installer/amd64/initrd.gz
-imgargs vmlinuz put_kernel_img_args_here
+#imgargs vmlinuz put_kernel_img_args_here
 boot || goto custom_exit
 
 :windows
