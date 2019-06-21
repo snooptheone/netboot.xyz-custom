@@ -25,7 +25,7 @@ boot || goto custom_exit
 
 :windows
 kernel https://boot.netboot.xyz/memdisk raw iso
-initrd https://raito.duckdns.org/web/windows1903/Win101903.iso
+initrd http://192.168.0.50/web/windows1903/Win101903.iso
 boot || goto custom_exit
 
 :option_three
