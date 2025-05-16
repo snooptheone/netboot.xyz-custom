@@ -8,13 +8,16 @@ isset ${uversion} || set uversion noble
 isset ${ubuntu_url} || set ubuntu_url http://br.archive.ubuntu.com
 isset ${release_url} || set release_url ${ubuntu_url}/releases/${uversion}
 isset ${ubuntu_netboot_url} || set ubuntu_netboot_url ${release_url}/netboot/amd64
-set iso_url ${release_url}/ubuntu-24.04.2-live-server-amd64.iso
+### set iso_url ${release_url}/ubuntu-24.04.2-live-server-amd64.iso
+set iso_server ${live_endpoint}/ubuntu-24.04.2-live-server-amd64.iso
+set iso_desk ${live_endpoint}/ubuntu-24.04.2-desktop-amd64.iso
 
 :custom
 clear custom_choice
 menu Desu Menu
 item --gap This is the first sub menu
-item ubuntu ${space} Ubuntu Netboot
+item ubuntu_server ${space} Ubuntu Server
+item ubuntu_desk ${space} Ubuntu Desktop
 item windows ${space} Windows 19.03ISO
 item --gap This is a second sub menu
 item option_three ${space} Loads another custom sub menu
@@ -24,8 +27,12 @@ echo ${cls}
 goto ${custom_choice}
 goto custom_exit
 
-:ubuntu
-sanboot ${iso_url}
+:ubuntu_server
+sanboot ${iso_server}
+boot || goto custom_exit
+
+:ubuntu_desk
+sanboot ${iso_desk}
 boot || goto custom_exit
 
 :windows
