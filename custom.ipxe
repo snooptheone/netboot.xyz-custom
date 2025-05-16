@@ -23,7 +23,7 @@ goto custom_exit
 :ubuntu
 kernel ${ubuntu_netboot_url}/linux
 initrd ${ubuntu_netboot_url}/initrd
-APPEND root=/dev/ram0 ramdisk_size=1500000 ip=dhcp iso-url=https://releases.ubuntu.com/24.04.2/ubuntu-24.04.2-live-server-amd64.iso ---
+imgargs root=/dev/ram0 ramdisk_size=1500000 ip=dhcp iso-url=https://releases.ubuntu.com/24.04.2/ubuntu-24.04.2-live-server-amd64.iso ---
 #imgargs vmlinuz put_kernel_img_args_here
 boot || goto custom_exit
 
