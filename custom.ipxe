@@ -4,7 +4,11 @@
 ###
 goto ${menu} ||
 
-isset ${ubuntu_netboot_url} || set ubuntu_netboot_url http://br.archive.ubuntu.com/releases/noble/netboot/amd64
+isset ${uversion} || set uversion noble
+isset ${ubuntu_url} || set ubuntu_url http://br.archive.ubuntu.com
+isset ${release_url} || set release_url ${ubuntu_url}/releases/${uversion}
+isset ${ubuntu_netboot_url} || set ubuntu_netboot_url ${release_url}/netboot/amd64
+set iso_url ${release_url}/ubuntu-24.04.2-live-server-amd64.iso
 
 :custom
 clear custom_choice
@@ -22,8 +26,7 @@ goto custom_exit
 
 :ubuntu
 kernel ${ubuntu_netboot_url}/linux
-initrd ${ubuntu_netboot_url}/initrd
-imgargs linux initrd=initrd iso-url=https://releases.ubuntu.com/24.04.2/ubuntu-24.04.2-live-server-amd64.iso ---
+initrd ${iso_url}
 #imgargs vmlinuz put_kernel_img_args_here
 boot || goto custom_exit
 
