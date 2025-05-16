@@ -25,8 +25,8 @@ goto ${custom_choice}
 goto custom_exit
 
 :ubuntu
-kernel ${ubuntu_netboot_url}/linux
-initrd boot=casper root=/dev/ram0 ramdisk_size=1500000 ip=dhcp iso-url=${iso_url} ---
+kernel ${ubuntu_netboot_url}/linux boot=casper ip=dhcp iso-url=${iso_url} ---
+initrd ${ubuntu_netboot_url}/initrd
 #imgargs vmlinuz put_kernel_img_args_here
 boot || goto custom_exit
 
