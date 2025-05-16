@@ -3,9 +3,11 @@
 ### netboot.xyz-custom menu example
 ###
 
+isset ${ubuntu_netboot_url} || set ubuntu_netboot_url http://br.archive.ubuntu.com/releases/noble/netboot/amd64
+
 :custom
 clear custom_choice
-menu This is a Test Menu
+menu Desu Menu
 item --gap This is the first sub menu
 item ubuntu ${space} Ubuntu Netboot
 item windows ${space} Windows 19.03ISO
@@ -18,8 +20,8 @@ goto ${custom_choice}
 goto custom_exit
 
 :ubuntu
-kernel http://br.archive.ubuntu.com/ubuntu/dists/disco/main/installer-amd64/current/images/netboot/ubuntu-installer/amd64/linux
-initrd http://br.archive.ubuntu.com/ubuntu/dists/disco/main/installer-amd64/current/images/netboot/ubuntu-installer/amd64/initrd.gz
+kernel ${ubuntu_netboot_url}/linux
+initrd ${ubuntu_netboot_url}/initrd
 #imgargs vmlinuz put_kernel_img_args_here
 boot || goto custom_exit
 
