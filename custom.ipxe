@@ -4,23 +4,24 @@
 ###
 goto ${menu} ||
 
-isset ${uversion} || set uversion noble
+isset ${urelease} || set urelease noble
+isset ${uversion} || set uversion 24.04.3
 isset ${ubuntu_url} || set ubuntu_url http://br.archive.ubuntu.com
-isset ${release_url} || set release_url ${ubuntu_url}/releases/${uversion}
+isset ${release_url} || set release_url ${ubuntu_url}/releases/${urelease}
 isset ${ubuntu_netboot_url} || set ubuntu_netboot_url ${release_url}/netboot/amd64
-### set iso_url ${release_url}/ubuntu-24.04.2-live-server-amd64.iso
-set iso_server ${live_endpoint}/ubuntu-24.04.2-live-server-amd64.iso
-set iso_desk ${live_endpoint}/ubuntu-24.04.2-desktop-amd64.iso
+### set iso_url ${release_url}/ubuntu-${uversion}-live-server-amd64.iso
+set iso_server ${live_endpoint}/ubuntu-${uversion}-live-server-amd64.iso
+set iso_desk ${live_endpoint}/ubuntu-${uversion}-desktop-amd64.iso
 
 :custom
 clear custom_choice
 menu Desu Menu
 item --gap This is the first sub menu
-item ubuntu_server ${space} Ubuntu Server
-item ubuntu_desk ${space} Ubuntu Desktop
-item windows ${space} Windows 19.03ISO
+item ubuntu_server ${space} Ubuntu ${uversion} Server
+item ubuntu_desk ${space} Ubuntu ${uversion} Desktop
+# item windows ${space} Windows 19.03ISO
 item --gap This is a second sub menu
-item option_three ${space} Loads another custom sub menu
+# item option_three ${space} Loads another custom sub menu
 item option_four ${space} This is option four
 choose custom_choice || goto custom_exit
 echo ${cls}
@@ -35,14 +36,23 @@ boot || goto custom_exit
 sanboot ${iso_desk}
 boot || goto custom_exit
 
-:windows
-kernel https://boot.netboot.xyz/memdisk raw iso
-initrd http://192.168.0.50/web/windows1903/Win101903.iso
+# :windows
+# kernel https://boot.netboot.xyz/memdisk raw iso
+# initrd http://192.168.0.50/web/windows1903/Win101903.iso
+# boot || goto custom_exit
+
+:steamos
+isset ${steamos_version} || set steamos_version 20250521.10-3.7.7
+isset ${steamos_base_url} || set steamos_base_url ${live_endpoint}/steamos
+isset ${steamos_vmlinux} || set steamos_vmlinux ${steamos_base_url}/vmlinuz-linux-neptune-611
+kernel ${steamos_vmlinux}
+initrd ${steamos_base_url}/steamdeck-repair-${steamos_version}.img
+# imgargs vmlinuz root=/dev/ram0 ramdisk_size=1500000 ip=dhcp url=${steamos_base_url}/steamdeck-repair-${steamos_version}.img quiet splash --
 boot || goto custom_exit
 
-:option_three
-echo Chains into another menu...
-chain https://raw.githubusercontent.com/${github_user}/netboot.xyz-custom/master/custom1.ipxe || goto custom
+# :option_three
+# echo Chains into another menu...
+# chain https://raw.githubusercontent.com/${github_user}/netboot.xyz-custom/master/custom1.ipxe || goto custom
 
 :custom_exit
 clear menu
